@@ -2,7 +2,7 @@
 
 # Script de téléchargement et chargement des données RPG dans postgresql
 
-for CMD in wget unzip ogr2ogr psql titi
+for CMD in wget unzip ogr2ogr psql
 do
   if [ "$(which $CMD)" = "" ]
   then

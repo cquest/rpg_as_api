@@ -25,14 +25,14 @@ Téléchargement et import des données :
 ## Paramètres reconnus par l'API
 
 Sélection par proximité géographique:
-- distance de 100m: http://localhost:8888/rpg?lat=48.85&lon=2.35&dist=100
-- distance par défaut de 500m: http://localhost:8888/rpg?lat=48.85&lon=2.35
-- distance de 100m et point en Lambert93: http://localhost:8888/rpg?x=780000&y=6756000&dist=100
+- distance de 100m: http://api.cquest.org/rpg?lat=47.86&lon=3.40&dist=1000
+- distance par défaut de 500m: http://api.cquest.org/rpg?lat=47.86&lon=3.40
+- distance de 100m et point en Lambert93: http://api.cquest.org/rpg?x=780000&y=6756000&dist=1000
 
 
 Filtrage par:
-- annee: http://localhost:8888/dvf?lat=48.85&lon=2.35&dist=100&annee=2016
-- code_culture: http://localhost:8888/dvf?lat=48.85&lon=2.35&dist=100&code_culture=ORP
+- annee: http://api.cquest.org/rpg?lat=47.86&lon=3.40&dist=1000&annee=2016
+- code_culture: http://api.cquest.org/rpg?lat=47.86&lon=3.40&dist=1000&code_culture=ORP
 
 Le résultat est au format GeoJSON.
 

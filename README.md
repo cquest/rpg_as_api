@@ -24,6 +24,8 @@ Téléchargement et import des données :
 Sélection par proximité géographique:
 - distance de 100m: http://localhost:8888/rpg?lat=48.85&lon=2.35&dist=100
 - distance par défaut de 500m: http://localhost:8888/rpg?lat=48.85&lon=2.35
+- distance de 100m et point en Lambert93: http://localhost:8888/rpg?x=780000&y=6756000&dist=100
+
 
 Filtrage par:
 - annee: http://localhost:8888/dvf?lat=48.85&lon=2.35&dist=100&annee=2016

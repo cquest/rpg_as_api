@@ -19,7 +19,7 @@ Téléchargement et import des données :
 
 ## Lancement du serveur
 
-`gunicorn dvf_as_api:app -b 0.0.0.0:8888`
+`gunicorn rpg_as_api:app -b 0.0.0.0:8888`
 
 
 ## Paramètres reconnus par l'API

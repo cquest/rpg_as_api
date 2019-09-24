@@ -1,0 +1,67 @@
+paths:
+  /rpg:
+    get:
+      summary: 'Recherche de parcelles'
+      responses:
+        '200':
+          description: 'Réponse fournie au format geojson'
+          schema: {}
+          x-oad-type: response
+      parameters:
+        -
+          name: lat
+          in: query
+          description: 'Lalitude du point autour duquel faire la recherche géographique'
+          required: true
+          type: number
+          format: float
+          x-oad-type: parameter
+        -
+          name: lon
+          in: query
+          description: 'Longitude autour de laquelle faire la recherche géographique de parcelles'
+          required: true
+          type: number
+          format: float
+          x-oad-type: parameter
+        -
+          name: annee
+          in: query
+          description: 'Année du millésime du Registre Parcellaire Graphique à interroger, retourne toutes les années si absent.'
+          required: true
+          type: string
+          enum:
+            - '2015'
+            - '2016'
+            - '2017'
+          x-oad-type: parameter
+        -
+          name: code_culture
+          in: query
+          description: 'Code du type de culture, filtre les résultats pour ne retourner que les parcelles possédant ce code_culture.'
+          required: true
+          type: string
+          x-oad-type: parameter
+    x-oad-type: operation
+info:
+  title: RPG_as_API
+  version: 1.0.0
+  description: 'Une micro-API d''interrogation du Registre Parcellaire Graphique'
+  contact:
+    name: 'Christian Quest'
+    email: api@cquest.org
+    url: 'https://github.com/cquest/rpg_as_api'
+  license:
+    name: 'Licence Ouverte'
+externalDocs:
+  url: 'https://github.com/cquest/rpg_as_api'
+host: api.cquest.org
+basePath: /
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+swagger: '2.0'

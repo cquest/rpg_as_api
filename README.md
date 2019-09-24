@@ -1,6 +1,7 @@
 # Micro-API RPG
 
-Ce projet implémente une API minimale pour requêter les données du Registre Parcellaire Graphique de l'ASP stockées dans une base locale postgresql.
+Ce projet implémente une API minimale pour requêter les données du Registre Parcellaire Graphique de l'ASP stockées dans une base locale postgresql/postgis.
+
 
 ## Installation
 
@@ -15,9 +16,11 @@ Téléchargement et import des données :
 
 `./rpg_download_import.sh`
 
+
 ## Lancement du serveur
 
 `gunicorn dvf_as_api:app -b 0.0.0.0:8888`
+
 
 ## Paramètres reconnus par l'API
 

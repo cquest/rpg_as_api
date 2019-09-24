@@ -25,9 +25,15 @@ class rpg(object):
             where2 = where2 + \
                 cur.mogrify(' AND code_culture = %s ', (code_culture,))
 
-        lat = req.params.get('lat', None)
-        lon = req.params.get('lon', None)
+        lat,lon = (req.params.get('lat', None), req.params.get('lon', None))
         dist = min(int(req.params.get('dist',100)),1000)
+        epsg = 4326
+
+        x,y = (req.params.get('x', None), req.params.get('y', None))
+        if x and y:
+            # on a des coordonnées en lambert...
+            lat,lon = (y, x)
+            epsg = 2154
 
         if lat and lon:  # recherche géographique
             query = cur.mogrify("""
@@ -37,16 +43,15 @@ select json_build_object('source', %s,
     'type','Featurecollection',
     'features', case when count(*)=0 then array[]::json[] else array_agg(json_build_object('type','Feature',
                                             'properties',json_strip_nulls(row_to_json(p))::jsonb - 'wkb_geometry'
-                                                || json_build_object('bbox', st_asgeojson(st_envelope(wkb_geometry),6,0)::json)::jsonb
-                                                || json_build_object('centroid', st_asgeojson(st_centroid(wkb_geometry),6,0)::json)::jsonb
+                                                || json_build_object('bbox', st_asgeojson(st_transform(st_envelope(wkb_geometry),%s),6,0)::json)::jsonb
+                                                || json_build_object('centroid', st_asgeojson(st_transform(st_centroid(wkb_geometry),%s),6,0)::json)::jsonb
                                             ,
-                                            'geometry',st_asgeojson(wkb_geometry,6,0)::json)) end )::text
+                                            'geometry',st_asgeojson(st_transform(wkb_geometry,%s),6,0)::json)) end )::text
 from rpg_parcelles p 
-where st_buffer(st_setsrid(st_makepoint(%s, %s),4326)::geography, %s)::geometry && wkb_geometry
-    and ST_DWithin(st_setsrid(st_makepoint(%s, %s),4326)::geography, wkb_geometry::geography, %s)
-""", (SOURCE, DERNIER_MILLESIME, LICENCE, lon, lat, dist, lon, lat, dist)) + where2
+where st_buffer(st_transform(st_setsrid(st_makepoint(%s, %s),%s),4326)::geography, %s)::geometry && wkb_geometry
+    and ST_DWithin(st_transform(st_setsrid(st_makepoint(%s, %s),%s),4326)::geography, wkb_geometry::geography, %s)
+""", (SOURCE, DERNIER_MILLESIME, LICENCE, epsg, epsg, epsg, lon, lat, epsg, dist, lon, lat, epsg, dist)) + where2
 
-            print(query.decode().replace('\n',' '))
             cur.execute(query)
             dvf = cur.fetchone()
 

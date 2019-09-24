@@ -5,14 +5,13 @@ paths:
       responses:
         '200':
           description: 'Réponse fournie au format geojson'
-          schema: {}
           x-oad-type: response
       parameters:
         -
           name: lat
           in: query
-          description: 'Lalitude du point autour duquel faire la recherche géographique'
-          required: true
+          description: 'Latitude du point autour duquel faire la recherche géographique'
+          required: false
           type: number
           format: float
           x-oad-type: parameter
@@ -20,7 +19,7 @@ paths:
           name: lon
           in: query
           description: 'Longitude autour de laquelle faire la recherche géographique de parcelles'
-          required: true
+          required: false
           type: number
           format: float
           x-oad-type: parameter
@@ -28,7 +27,7 @@ paths:
           name: annee
           in: query
           description: 'Année du millésime du Registre Parcellaire Graphique à interroger, retourne toutes les années si absent.'
-          required: true
+          required: false
           type: string
           enum:
             - '2015'
@@ -39,8 +38,24 @@ paths:
           name: code_culture
           in: query
           description: 'Code du type de culture, filtre les résultats pour ne retourner que les parcelles possédant ce code_culture.'
-          required: true
+          required: false
           type: string
+          x-oad-type: parameter
+        -
+          name: x
+          in: query
+          description: 'X en Lambert 93, le résultat sera retourné en Lambert 93 si Y aussi présent'
+          required: false
+          type: integer
+          format: int32
+          x-oad-type: parameter
+        -
+          name: y
+          in: query
+          description: 'Y en Lambert 93'
+          required: false
+          type: integer
+          format: int32
           x-oad-type: parameter
     x-oad-type: operation
 info:

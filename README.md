@@ -3,11 +3,13 @@
 Ce projet implémente une API minimale pour requêter les données du Registre Parcellaire Graphique de l'ASP stockées dans une base locale postgresql/postgis.
 
 
-## Installation
+## Installation et prérequis
 
 Ce projet est écrit en python 3 qui doit donc être installé. Les modules utilisés peuvent être installés avec:
 
 `pip3 install -r requirements.txt`
+
+Une base postgresql avec postgis doit être aussi disponible pour le user courant. Elle n'est pas créé par ces scripts.
 
 
 ## Chargement des données

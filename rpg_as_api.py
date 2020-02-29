@@ -5,7 +5,7 @@ import falcon
 import psycopg2
 
 SOURCE = 'ASP / Registre Parcellaire Graphique'
-DERNIER_MILLESIME = '2017'
+DERNIER_MILLESIME = '2018'
 LICENCE = 'Licence Ouverte'
 
 class rpg(object):

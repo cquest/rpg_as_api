@@ -40,11 +40,14 @@ rm -f PARCELLES*
 # 2018
 wget -N -nv http://data.cquest.org/registre_parcellaire_graphique/2018/RPG_2-0__SHP_LAMB93_FR-2018_2018-01-15.7z
 7z x RPG_2-0__SHP_LAMB93_FR-2018_2018-01-15.7z
-
 # import postgresql avec reprojection WGS84
 ogr2ogr -f pgdump -nln rpg_2018_parcelles -nlt geometry -t_srs EPSG:4326 RPG*2018*/*/*/*/PARCELLES_GRAPHIQUES.shp | psql $USER
+# nettoyage
+rm -rf RPG*2018*
+
+
+# création/mise à jour de la vue couvrant les différents millésimes
 psql -c "
-alter table rpg_2018_parcelles drop ogc_fid;
 create or replace view rpg_parcelles as
   SELECT 2018 as annee, id_parcel as id_parcelle, code_cultu as code_culture, code_group as code_groupe, culture_d1, culture_d2, wkb_geometry FROM rpg_2018_parcelles
 union
@@ -54,5 +57,4 @@ union
 union
   select 2015 as annee, id_parcel as id_parcelle, code_cultu as code_culture, code_group as code_groupe, culture_d1, culture_d2, wkb_geometry from rpg_2015_parcelles;
 "
-# nettoyage
-rm -rf RPG*2018*
+
